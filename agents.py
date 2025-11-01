@@ -1,18 +1,18 @@
 from crewai import Agent
 from tools import yt_tool
 from dotenv import load_dotenv
-from langchain.chat_models import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 import os
 
 # Load .env early so environment variables are available when creating the LLM
 load_dotenv()
 
-# If an OPENAI_API_KEY is provided in the environment, keep it available for libraries
-if os.getenv("OPENAI_API_KEY"):
-    os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+# If a GEMINI_API_KEY is provided in the environment, keep it available for libraries
+if os.getenv("GEMINI_API_KEY"):
+    os.environ["GOOGLE_API_KEY"] = os.getenv("GEMINI_API_KEY")
 
 # Instantiate the LLM after environment is loaded
-llm = ChatOpenAI(model=os.getenv("OPENAI_MODEL_NAME", "gpt-4o"))
+llm = ChatGoogleGenerativeAI(model=os.getenv("GEMINI_MODEL_NAME", "gemini-pro"))
 
 blog_researcher = Agent(
     role='Blog Researcher from YouTube Videos',
